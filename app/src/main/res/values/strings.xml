@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Oct 18</string>
+    <string name="hello_world">Hello World!</string>
+
+    <string name="enter_no_1">Enter Number 1</string>
+    <string name="enter_no_2">Enter Number 2</string>
+    <string name="submit">Submit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

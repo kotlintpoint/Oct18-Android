@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.RadioButtonFragment"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_16">
+
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/et_number_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter number 1"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/et_number_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter number 2"
+        android:inputType="number"/>
+
+   <RadioGroup
+       android:id="@+id/rg_operation"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <RadioButton
+           android:id="@+id/rb_add"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Addition"
+           android:checked="true"/>
+
+       <RadioButton
+           android:id="@+id/rb_sub"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Substraction"/>
+
+       <RadioButton
+           android:id="@+id/rb_mul"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Multiplication"/>
+
+       <RadioButton
+           android:id="@+id/rb_div"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Division"/>
+
+   </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textSize="@dimen/padding_16"/>
+
+</LinearLayout>
