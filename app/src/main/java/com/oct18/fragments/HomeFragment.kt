@@ -49,6 +49,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().title="Home"
 
+        binding.btnRecyclerView.setOnClickListener(this)
         binding.btnEditText.setOnClickListener(this)
         binding.btnRadioButton.setOnClickListener(this)
         binding.btnCheckbox.setOnClickListener(this)
@@ -61,6 +62,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         val fragment:Fragment? = when(v!!.id){
+            R.id.btn_recycler_view-> RecyclerViewFragment()
             R.id.btn_edit_text->EditTextFragment()
             R.id.btn_radio_button->RadioButtonFragment()
             R.id.btn_checkbox->CheckboxFragment()

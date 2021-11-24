@@ -5,7 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment"
     android:orientation="vertical">
-
+    <Button
+        android:id="@+id/btn_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recycler View"/>
     <Button
         android:id="@+id/btn_edit_text"
         android:layout_width="wrap_content"
