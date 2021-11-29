@@ -34,10 +34,12 @@ class StudentAdapter(private val data: List<Student>,
     // 5
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
        val student=data[position]
-        with(holder.binding){
+        /*with(holder.binding){
             tvFullName.text="${student.firstName} ${student.lastName}"
             tvEmail.text=student.email
-        }
+        }*/
+
+        holder.binding.student=student
 
         holder.itemView.setOnClickListener {
             listener.onStudentClick(student)

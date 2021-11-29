@@ -34,6 +34,7 @@ class RecyclerViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        requireActivity().title="RecyclerView"
         binding= FragmentRecyclerViewBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -42,10 +43,10 @@ class RecyclerViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // 1. setLayoutManager
-        //binding.recyclerView.layoutManager=LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager=LinearLayoutManager(requireContext())
         //binding.recyclerView.layoutManager=GridLayoutManager(requireContext(),2)
         //binding.recyclerView.layoutManager=StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        binding.recyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
+        //binding.recyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,true)
 
         //2. Create Model class
 

@@ -5,51 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/btn_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recycler View"/>
-    <Button
-        android:id="@+id/btn_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Text"/>
 
-    <Button
-        android:id="@+id/btn_radio_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Radio Button"/>
-
-    <Button
-        android:id="@+id/btn_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Check Box"/>
-
-    <Button
-        android:id="@+id/btn_seekbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seekbar"/>
-
-    <Button
-        android:id="@+id/btn_webview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Webview"/>
-
-    <Button
-        android:id="@+id/btn_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Spinner"/>
-
-    <Button
-        android:id="@+id/btn_listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="listview"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
