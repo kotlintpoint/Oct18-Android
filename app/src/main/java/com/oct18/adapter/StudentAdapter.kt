@@ -1,5 +1,6 @@
 package com.oct18.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oct18.databinding.StudentLayoutBinding
 import com.oct18.model.Student
 
-class StudentAdapter(private val data: List<Student>,
+class StudentAdapter(public var data: List<Student>,
                      private val listener:OnStudentClickListener) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     /*
@@ -15,6 +16,7 @@ class StudentAdapter(private val data: List<Student>,
      */
     public interface OnStudentClickListener{
         fun onStudentClick(student:Student)
+        fun onStudentLongClick(student:Student)
     }
 
 
@@ -41,8 +43,16 @@ class StudentAdapter(private val data: List<Student>,
 
         holder.binding.student=student
 
+        if(student.isSelected) holder.binding.cardView.setCardBackgroundColor(Color.GREEN)
+        else holder.binding.cardView.setCardBackgroundColor(Color.GRAY)
+
         holder.itemView.setOnClickListener {
             listener.onStudentClick(student)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            listener.onStudentLongClick(student)
+            true
         }
     }
 

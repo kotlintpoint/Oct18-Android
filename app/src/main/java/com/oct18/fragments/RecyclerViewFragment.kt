@@ -2,16 +2,16 @@ package com.oct18.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.oct18.R
 import com.oct18.adapter.StudentAdapter
 import com.oct18.databinding.FragmentRecyclerViewBinding
 import com.oct18.model.Student
+import java.util.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,9 +25,45 @@ private const val TAG = "RecyclerViewFragment"
  * create an instance of this fragment.
  */
 class RecyclerViewFragment : Fragment() {
+    private lateinit var data: ArrayList<Student>
+
     // TODO: Rename and change types of parameters
     private lateinit var binding:FragmentRecyclerViewBinding
     private lateinit var adapter: StudentAdapter;
+    private var actionMode:ActionMode? = null
+
+    val actionModeCallback= object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            val inflater: MenuInflater = mode!!.menuInflater
+            inflater.inflate(R.menu.user_menu, menu)
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            return false
+        }
+
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            return when (item!!.itemId) {
+                R.id.action_delete -> {
+                    //Delete Selected Items
+                    val tempData=data.filter { !it.isSelected }
+                    data= tempData as ArrayList<Student>
+                    adapter.data=data
+                    adapter.notifyDataSetChanged()
+
+                    mode!!.finish() // Action picked, so close the CAB
+                    true
+                }
+                else -> false
+            }
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+            actionMode = null
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +87,7 @@ class RecyclerViewFragment : Fragment() {
         //2. Create Model class
 
         //3. Prepare data list
-        val data= arrayListOf<Student>(
+        data= arrayListOf<Student>(
             Student("M","M","m@gmail.com"),
             Student("Prince","Prince","prince@gmail.com"),
             Student("Hiren","Hiren","hiren@gmail.com"),
@@ -65,8 +101,26 @@ class RecyclerViewFragment : Fragment() {
         adapter = StudentAdapter(data, object : StudentAdapter.OnStudentClickListener {
             override fun onStudentClick(student: Student) {
                 Log.i(TAG, student.toString())
-                data.remove(student)
-                adapter.notifyDataSetChanged()
+                if(actionMode==null) {
+                    data.remove(student)
+                    adapter.notifyDataSetChanged()
+                }else{
+                    student.isSelected=!student.isSelected
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onStudentLongClick(student: Student) {
+                when (actionMode) {
+                    null -> {
+                        // Start the CAB using the ActionMode.Callback defined above
+                        actionMode = activity?.startActionMode(actionModeCallback)
+                        student.isSelected=true
+                        adapter.notifyDataSetChanged()
+                        true
+                    }
+                    else -> false
+                }
             }
         })
         // 6. Set adapter

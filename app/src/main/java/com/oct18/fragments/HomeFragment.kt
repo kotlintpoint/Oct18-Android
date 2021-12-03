@@ -55,6 +55,7 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext())
 
         val data= arrayListOf<HomeItem>(
+            HomeItem("Menus",MenuFragment(),null),
             HomeItem("Dialogs",DialogsFragment(),null),
             HomeItem("RecyclerView",RecyclerViewFragment(),null),
             HomeItem("Edit Text",EditTextFragment(),null),
