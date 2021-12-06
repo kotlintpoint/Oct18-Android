@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.oct18">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Oct18"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ViewModelActivity"
+            android:exported="true" />
         <activity
             android:name=".WebViewActivity"
             android:exported="true" />
@@ -25,7 +30,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

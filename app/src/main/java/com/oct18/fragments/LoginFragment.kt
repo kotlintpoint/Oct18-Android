@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.oct18.R
 import com.oct18.databinding.FragmentLoginBinding
 
@@ -96,10 +97,15 @@ class LoginFragment : Fragment() {
                 }
 
                 Log.i(TAG, "Login Success!!!")
-                parentFragmentManager
+               /* parentFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment_container, HomeFragment())
-                    .commit()
+                    .commit()*/
+
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_loginFragment_to_homeFragment)
+
+
             }
         }
     }

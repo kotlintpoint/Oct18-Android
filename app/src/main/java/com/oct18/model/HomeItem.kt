@@ -9,5 +9,6 @@ import com.oct18.WebViewActivity
 data class HomeItem(
     val title:String,
     val fragment:Fragment?,
-    val activity: AppCompatActivity?
+    val activity: AppCompatActivity?,
+    val destinationId:Int?
 )

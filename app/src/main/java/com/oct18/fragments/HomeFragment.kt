@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oct18.R
+import com.oct18.ViewModelActivity
 import com.oct18.WebViewActivity
 import com.oct18.adapter.HomeItemAdapter
 import com.oct18.databinding.FragmentHomeBinding
@@ -55,26 +57,28 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext())
 
         val data= arrayListOf<HomeItem>(
-            HomeItem("Menus",MenuFragment(),null),
-            HomeItem("Dialogs",DialogsFragment(),null),
-            HomeItem("RecyclerView",RecyclerViewFragment(),null),
-            HomeItem("Edit Text",EditTextFragment(),null),
-            HomeItem("Radio Button",RadioButtonFragment(),null),
-            HomeItem("Check box",CheckboxFragment(),null),
-            HomeItem("Seekbar",SeekbarFragment(),null),
-            HomeItem("WebView",null, WebViewActivity()),
-            HomeItem("Spinner",SpinnnerFragment(), null),
-            HomeItem("List View",ListviewFragment(), null),
+            HomeItem("View Model",null,ViewModelActivity(),null),
+            HomeItem("Menus",MenuFragment(),null,R.id.action_homeFragment_to_menuFragment),
+            HomeItem("Dialogs",DialogsFragment(),null,R.id.action_homeFragment_to_dialogsFragment),
+            HomeItem("RecyclerView",RecyclerViewFragment(),null,R.id.action_homeFragment_to_recyclerViewFragment),
+            HomeItem("Edit Text",EditTextFragment(),null,null),
+            HomeItem("Radio Button",RadioButtonFragment(),null,null),
+            HomeItem("Check box",CheckboxFragment(),null,null),
+            HomeItem("Seekbar",SeekbarFragment(),null,null),
+            HomeItem("WebView",null, WebViewActivity(),null),
+            HomeItem("Spinner",SpinnnerFragment(), null,null),
+            HomeItem("List View",ListviewFragment(), null,null),
         )
 
         val adapter=HomeItemAdapter(data, object : HomeItemAdapter.OnHomeItemClickListener {
             override fun onHomeItemClick(item: HomeItem) {
                 if(item.fragment!=null){
-                    parentFragmentManager
+                    /*parentFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_container, item.fragment)
                         .addToBackStack(HomeFragment::class.java.name)
-                        .commit()
+                        .commit()*/
+                    Navigation.findNavController(view).navigate(item.destinationId!!)
                 } else{
                     startActivity(Intent(requireContext(),item.activity!!::class.java))
                 }
