@@ -1,5 +1,6 @@
 package com.oct18.fragments
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -69,6 +70,17 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().title="Login Here"
 
+        // =========read and confirm if user already login==================
+        val sharedPref=activity?.getSharedPreferences(
+            getString(R.string.app_name),MODE_PRIVATE
+        )
+        val isLogin=sharedPref!!.getBoolean("isLogin",false)
+        if(isLogin){
+            Navigation.findNavController(view)
+                .navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+        //===================================================================
+
         binding.apply {
             btnSubmit.setOnClickListener {
                 val userName=etUsername.text.toString()
@@ -101,6 +113,15 @@ class LoginFragment : Fragment() {
                     .beginTransaction()
                     .replace(R.id.fragment_container, HomeFragment())
                     .commit()*/
+
+                // write in shared preference
+
+
+                with(sharedPref!!.edit()){
+                    putBoolean("isLogin",true)
+                    putString("username",userName)
+                    apply()
+                }
 
                 Navigation.findNavController(view)
                     .navigate(R.id.action_loginFragment_to_homeFragment)

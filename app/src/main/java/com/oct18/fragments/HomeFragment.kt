@@ -1,11 +1,10 @@
 package com.oct18.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oct18.R
@@ -51,7 +50,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().title="Home"
+
+        setHasOptionsMenu(true)
+
+        val sharedPref=activity?.getSharedPreferences(
+            getString(R.string.app_name), Context.MODE_PRIVATE
+        )
+        val userName=sharedPref!!.getString("username","")
+        requireActivity().title="Welcome, $userName"
 
         binding.recyclerView.layoutManager=
             LinearLayoutManager(requireContext())
@@ -87,4 +93,27 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter=adapter
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.home_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_logout->{
+                // remove value from preference
+                val sharedPref=activity?.getSharedPreferences(
+                    getString(R.string.app_name), Context.MODE_PRIVATE
+                )
+                with(sharedPref!!.edit()){
+                   clear()
+                   apply()
+                }
+                requireActivity()!!.finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
