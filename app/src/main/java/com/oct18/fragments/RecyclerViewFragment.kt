@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -77,6 +78,7 @@ class RecyclerViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+            setHasOptionsMenu(true)
 
         // 1. setLayoutManager
         binding.recyclerView.layoutManager=LinearLayoutManager(requireContext())
@@ -87,13 +89,7 @@ class RecyclerViewFragment : Fragment() {
         //2. Create Model class
 
         //3. Prepare data list
-        data= arrayListOf<Student>(
-            Student("M","M","m@gmail.com"),
-            Student("Prince","Prince","prince@gmail.com"),
-            Student("Hiren","Hiren","hiren@gmail.com"),
-            Student("Krishna","Krishna","krishna@gmail.com"),
-            Student("Mansi","Mansi","mansi@gmail.com")
-        )
+        data= arrayListOf<Student>()
 
         //4. Create Adapter class
 
@@ -129,4 +125,18 @@ class RecyclerViewFragment : Fragment() {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.user_new_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId==R.id.action_new){
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_recyclerViewFragment_to_studentFormFragment)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

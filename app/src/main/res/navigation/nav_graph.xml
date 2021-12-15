@@ -34,7 +34,11 @@
         android:id="@+id/recyclerViewFragment"
         android:name="com.oct18.fragments.RecyclerViewFragment"
         android:label="fragment_recycler_view"
-        tools:layout="@layout/fragment_recycler_view" />
+        tools:layout="@layout/fragment_recycler_view" >
+        <action
+            android:id="@+id/action_recyclerViewFragment_to_studentFormFragment"
+            app:destination="@id/studentFormFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.oct18.fragments.LoginFragment"
@@ -44,4 +48,9 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/studentFormFragment"
+        android:name="com.oct18.fragments.StudentFormFragment"
+        android:label="fragment_student_form"
+        tools:layout="@layout/fragment_student_form" />
 </navigation>
