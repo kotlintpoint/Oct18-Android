@@ -8,14 +8,17 @@
     android:padding="@dimen/padding_16">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter ID" />
+            android:hint="Enter ID"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

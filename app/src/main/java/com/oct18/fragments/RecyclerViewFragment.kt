@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.oct18.R
 import com.oct18.adapter.StudentAdapter
 import com.oct18.databinding.FragmentRecyclerViewBinding
+import com.oct18.db.DbUtils
 import com.oct18.model.Student
 import java.util.ArrayList
 
@@ -47,7 +48,14 @@ class RecyclerViewFragment : Fragment() {
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
             return when (item!!.itemId) {
                 R.id.action_delete -> {
-                    //Delete Selected Items
+                    //Delete Selected Items, remove from database
+                    val db= DbUtils.getDatabase(requireContext())
+                    val dao=db.studentDao()
+                    data.forEach {
+                        if(it.isSelected) dao.deleteStudent(it)
+                    }
+
+                    // remove selected items from array list
                     val tempData=data.filter { !it.isSelected }
                     data= tempData as ArrayList<Student>
                     adapter.data=data
@@ -62,6 +70,13 @@ class RecyclerViewFragment : Fragment() {
 
         override fun onDestroyActionMode(mode: ActionMode?) {
             actionMode = null
+
+            // de-select all items
+            data.forEach{
+                it.isSelected=false
+            }
+            adapter.data=data
+            adapter.notifyDataSetChanged()
         }
 
     }
@@ -91,6 +106,12 @@ class RecyclerViewFragment : Fragment() {
         //3. Prepare data list
         data= arrayListOf<Student>()
 
+        val db= DbUtils.getDatabase(requireContext())
+
+        val dao=db.studentDao()
+        val studentList = dao.getAllStudents()
+        data.addAll(studentList)
+
         //4. Create Adapter class
 
         //5. Pass data to adapter class 1) Constructor 2) method
@@ -98,8 +119,15 @@ class RecyclerViewFragment : Fragment() {
             override fun onStudentClick(student: Student) {
                 Log.i(TAG, student.toString())
                 if(actionMode==null) {
-                    data.remove(student)
-                    adapter.notifyDataSetChanged()
+                    //data.remove(student)
+                    //adapter.notifyDataSetChanged()
+
+                // single click edit
+                    val args=Bundle()
+                    args.putParcelable("student",student)
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_recyclerViewFragment_to_studentFormFragment,args)
+
                 }else{
                     student.isSelected=!student.isSelected
                     adapter.notifyDataSetChanged()
